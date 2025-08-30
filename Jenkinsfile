@@ -22,7 +22,9 @@ pipeline {
 
         stage('Trigger Render Deploy') {
             steps {
-                bat 'curl -X POST "https://api.render.com/deploy/srv-d01mkt2dbo4c738toc3g?key=nqwk7W7TOdk" || exit /b 1'
+                withCredentials([string(credentialsId: 'RENDER_API_KEY', variable: 'RENDER_KEY')]) {
+                bat "curl -X POST \"https://api.render.com/deploy/srv-d01mkt2dbo4c738toc3g?key=${RENDER_KEY}\""
+}
             }
         }
     }
